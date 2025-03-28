@@ -1,7 +1,8 @@
-import "dotenv/config";
+ import "dotenv/config";
 
 import express from 'express'
-import ConectDatabase from './ConectDatabase.js'
+import ConectDatabase from './src/config/ConectDatabase.js';
+import routes  from "./src/router/index.js";
 
 
 const app = express()
@@ -14,19 +15,14 @@ conexao.on('error', (erro) => {
   console.log('erro de conexão', erro)
 });
 
-
 conexao.once('open', () => {
   console.log('conexão com bamco feita com secesso');
 })
 
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+routes(app);
 
-app.post('/', (req, res) => {
-    res.send('Got a POST request')
-  })
+
 
 app.put('/user', (req, res) => {
     res.send('Got a PUT request at /user')
